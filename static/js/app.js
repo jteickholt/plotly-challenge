@@ -1,33 +1,6 @@
 
 
 
-/////////////////////////////////////////////////////
-/// This next function will load the subject id's into the dropdown
-/////////////////////////////////////////////////////
-
-function loaddropdown() {
-    d3.json("../../samples.json").then(function (data) {
-        var names = data.names;
-        var dropdown = d3.select("#selDataset");
-        names.forEach((name) => {
-            dropdown
-            .append("option")
-            .text(name)
-            .property("value", name);
-        });
-    });
-    
-}
-
-// call function to load subject id's into dropdown
-loaddropdown();
-
-// Here I call the main function that creates the charts.  This will initialize the charts
-// to use the first subject on the dropdown list when the html is first opened or reloaded
-updateCharts();
-
-// Selects that dropdown element and upon change executes the main function to update the charts
-d3.selectAll('#selDataset').on('change', updateCharts);
 
 
 /////////////////////////////////////////////////////
@@ -165,4 +138,32 @@ function updateCharts() {
 
 }
 
+/////////////////////////////////////////////////////
+/// This next function will load the subject id's into the dropdown
+/////////////////////////////////////////////////////
+
+function loaddropdown() {
+    d3.json("../../samples.json").then(function (data) {
+        var names = data.names;
+        var dropdown = d3.select("#selDataset");
+        names.forEach((name) => {
+            dropdown
+            .append("option")
+            .text(name)
+            .property("value", name);
+        });
+    });
+    // Here I call the main function which ititialize the page based on the first subject on the list
+    updateCharts();  
+}
+
+// call function to load subject id's into dropdown
+loaddropdown();
+
+// // Here I call the main function that creates the charts.  This will initialize the charts
+// // to use the first subject on the dropdown list when the html is first opened or reloaded
+// updateCharts();
+
+// Selects that dropdown element and upon change executes the main function to update the charts
+d3.selectAll('#selDataset').on('change', updateCharts);
 
