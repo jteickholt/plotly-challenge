@@ -139,7 +139,7 @@ function updateCharts() {
 /////////////////////////////////////////////////////
 
 function loaddropdown() {
-    d3.json("../../samples.json").then(function (data) {
+    d3.json("https://jteickholt.github.io/plotly-challenge/samples.json").then(function (data) {
         var names = data.names;
         var dropdown = d3.select("#selDataset");
         names.forEach((name) => {
