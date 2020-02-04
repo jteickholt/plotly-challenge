@@ -1,15 +1,11 @@
 
-
-
-
-
 /////////////////////////////////////////////////////
 /// This is the main function that will create/update all of the charts
 /////////////////////////////////////////////////////
 
 
 function updateCharts() {
-    d3.json("../../samples.json").then(function (data) {
+    d3.json("https://jteickholt.github.io/plotly-challenge/samples.json").then(function (data) {
         
         /////////////////////////////////////////////////////
         /// This section of code populates the demogaphic panel
@@ -153,16 +149,13 @@ function loaddropdown() {
             .property("value", name);
         });
     });
-    // Here I call the main function which ititialize the page based on the first subject on the list
+    // Here I call the main function which ititializes the page based on the first subject on the list
     updateCharts();  
 }
 
 // call function to load subject id's into dropdown
 loaddropdown();
 
-// // Here I call the main function that creates the charts.  This will initialize the charts
-// // to use the first subject on the dropdown list when the html is first opened or reloaded
-// updateCharts();
 
 // Selects that dropdown element and upon change executes the main function to update the charts
 d3.selectAll('#selDataset').on('change', updateCharts);
