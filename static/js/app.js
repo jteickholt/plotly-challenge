@@ -11,6 +11,7 @@ function updateCharts() {
         /// This section of code populates the demogaphic panel
         /////////////////////////////////////////////////////
 
+        // Identify which subject was chosen
         var subject = +d3.select('#selDataset').node().value;
 
         // bring in the metadata and then filter for the particular subject
@@ -20,9 +21,10 @@ function updateCharts() {
         //select the panel body to display the metadata
         var demobox = d3.select(".panel-body"); 
 
-        // Output the keys and values to the panel
+        // Clean the panel of data 
         demobox.html("");
 
+        // Output the keys and values to the panel
         Object.entries(subjectData).forEach(([key,value]) => {
             var cell = demobox.append("p").text(`${key}: ${value}`);
         });
@@ -37,7 +39,7 @@ function updateCharts() {
 
         var subjectSample = sample.filter(person => person.id == subject)[0];
 
-    //Slice the otu_ids to keep just the top 10 
+        //Slice the otu_ids to keep just the top 10 
         var otuId = subjectSample.otu_ids.slice(0,10);
 
         // Create labels to be used on bar chart
@@ -97,7 +99,8 @@ function updateCharts() {
         Plotly.newPlot("bubble", data, layout);
 
         /////////////////////////////////////////////////////
-        /// This section of code creates the gauge chart
+        /// This section of code creates the bonsus gauge chart
+        /// I got the basic chart, but wasn't able to customize like shown in the instructions.
         /////////////////////////////////////////////////////
 
         var washFreq = subjectData.wfreq;
@@ -108,26 +111,26 @@ function updateCharts() {
                 value: washFreq,
                 title: { text: "Belly Button Washing Frequency" },
                 type: "indicator",
-                mode: "gauge+number",
+                mode: "gauge+number",  
                 gauge: {
                     axis: { range: [null, 9] },
                     steps: [
-                    { range: [0, 1], color: "Beige" },
-                    { range: [1, 2], color: "BlanchedAlmond" },
-                    { range: [2, 3], color: "Bisque" },
-                    { range: [3, 4], color: "Khaki" },
-                    { range: [4, 5], color: "LemonChiffon" },
-                    { range: [5, 6], color: "HoneyDew" },
-                    { range: [6, 7], color: "LightGreen" },
-                    { range: [7, 8], color: "rgb(0,90,60)" },
-                    { range: [8, 9], color: "rgb(0,100,110)" },
+                    { range: [0, 1], color: "rgba(295, 295, 255, 0)" },
+                    { range: [1, 2], color: "rgba(235, 232, 232, 0.5)" },
+                    { range: [2, 3], color: "rgba(232, 226, 202, .5)" },
+                    { range: [3, 4], color: "rgba(210, 206, 145, .5)" },
+                    { range: [4, 5], color: "rgba(202, 209, 95, .5)" },
+                    { range: [5, 6], color: "rgba(202, 209, 95, .5)" },
+                    { range: [6, 7], color: "rgba(170, 202, 42, .5)" },
+                    { range: [7, 8], color: "rgba(110, 154, 22, .5)" },
+                    { range: [8, 9], color: "rgba(50, 154, 22, .5)" },
                     ],
                     
                 }
             }
         ];
         
-
+        // Create the gauge plot
         Plotly.newPlot('gauge', data, layout);
 
     });
@@ -135,7 +138,9 @@ function updateCharts() {
 }
 
 /////////////////////////////////////////////////////
-/// This next function will load the subject id's into the dropdown
+/// This next function will load the subject id's into the dropdown.
+/// It also calls the updateCharts function which will initialize the charts
+/// using the first subject on the list.
 /////////////////////////////////////////////////////
 
 function loaddropdown() {
